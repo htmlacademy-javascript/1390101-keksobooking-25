@@ -1,39 +1,3 @@
-/* 1 Функция, возвращающая случайное целое число из переданного диапазона включительно.
-  диапазон может быть только положительный, включая ноль.
-  как функция должна вести себя, если передать значение «до» меньшее, чем значение «от», или равное ему.*/
-
-function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-
-  if (min > max || min < 0 || max < 0) {
-    throw new Error('Неверные параметры функции');
-  }
-
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-getRandomInt(1, 8);
-
-/* 2 Функция, возвращающая случайное число с плавающей точкой из переданного диапазона включительно.
-  диапазон может быть только положительный, включая ноль.
-  как функция должна вести себя, если передать значение «до» меньшее, чем значение «от», или равное ему.
-*/
-
-function getRandomFloat(min, max, fractionDigits) {
-  if (min < 0 || max < 0) {
-    throw new Error('Числа должны быть только положительными');
-  }
-
-  if (min < max) {
-    return (Math.random() * (max - min) + min).toFixed(fractionDigits);
-  }
-
-  return (Math.random() * (min - max) + max).toFixed(fractionDigits);
-}
-
-getRandomFloat(1.25, 4.35, 5);
-
 
 const TITLES = [
   'Норка в тихом лесу.',
@@ -94,23 +58,56 @@ const PHOTOS = [
 
 const GENERATED_OBJ = 10;
 
-const LOCATIONS = () => ({
+const LAT_MIN = 35.65000;
+
+const LAT_MAX = 35.70000;
+
+const ING_MIN = 139.70000;
+
+const ING_MAX = 139.80000;
+
+const getRandomInt = (min, max) => {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+
+  if (min > max || min < 0 || max < 0) {
+    throw new Error('Неверные параметры функции');
+  }
+
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+const getRandomFloat = (min, max, fractionDigits) => {
+  if (min < 0 || max < 0) {
+    throw new Error('Числа должны быть только положительными');
+  }
+
+  if (min < max) {
+    return (Math.random() * (max - min) + min).toFixed(fractionDigits);
+  }
+
+  return (Math.random() * (min - max) + max).toFixed(fractionDigits);
+}
+
+const getLocation = () => ({
   lat: getRandomFloat(35.65000, 35.70000, 5),
-  ing: getRandomFloat(139.70000, 139.80000, 5)
+  lng: getRandomFloat(139.70000, 139.80000, 5)
 });
 
 const getRandomArrayElement = (elements) => {
-  return elements[getRandomPositiveInteger(0, elements.length -1)];
+  return elements[getRandomInt(0, elements.length -1)];
 };
 
 const createOffer = () => {
+  const location = getLocation();
+
   const offer = {
     autor: {
       avatar: 'img/avatars/${userId}.png'
     },
     offer: {
       title: getRandomArrayElement(TITLES),
-      address: lat, ing(LOCATIONS),
+      // address: location.lat, location.lng, НЕ понимаю как работает
       price: getRandomInt(1, 1000),
       type: getRandomArrayElement(TYPES),
       rooms: getRandomInt(1, 5),
@@ -122,10 +119,12 @@ const createOffer = () => {
       photos: getRandomArrayElement(PHOTOS),
     },
     location: {
-      lat: lat,
-      ing: ing
+      lat: location.lat,
+      lng: location.lng
     }
-  }
+  };
+
+  return offer;
 };
 
 const createOffers = () => {
@@ -137,3 +136,5 @@ const createOffers = () => {
 
   return data;
 };
+
+console.log(createOffers());
