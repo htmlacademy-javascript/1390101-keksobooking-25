@@ -56,7 +56,7 @@ const PHOTOS = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'
 ];
 
-const GENERATED_OBJ = 10;
+let GENERATED_OBJ = 10;
 
 const LAT_MIN = 35.65000;
 
@@ -75,7 +75,7 @@ const getRandomInt = (min, max) => {
   }
 
   return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+};
 
 const getRandomFloat = (min, max, fractionDigits) => {
   if (min < 0 || max < 0) {
@@ -87,23 +87,28 @@ const getRandomFloat = (min, max, fractionDigits) => {
   }
 
   return (Math.random() * (min - max) + max).toFixed(fractionDigits);
-}
+};
 
 const getLocation = () => ({
-  lat: getRandomFloat(35.65000, 35.70000, 5),
-  lng: getRandomFloat(139.70000, 139.80000, 5)
+  lat: getRandomFloat(LAT_MIN, LAT_MAX, 5),
+  lng: getRandomFloat(ING_MIN, ING_MAX, 5)
 });
 
-const getRandomArrayElement = (elements) => {
-  return elements[getRandomInt(0, elements.length -1)];
+const getAvatarImg = (number) => {
+  if (number < 10) {
+    number = `0${number}`;
+  }
+  return `img/avatars/user${number}.png`;
 };
+
+const getRandomArrayElement = (elements) => elements[getRandomInt(0, elements.length -1)];
 
 const createOffer = () => {
   const location = getLocation();
 
   const offer = {
     autor: {
-      avatar: 'img/avatars/${userId}.png'
+      avatar: getAvatarImg(number),
     },
     offer: {
       title: getRandomArrayElement(TITLES),
