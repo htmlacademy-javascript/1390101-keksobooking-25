@@ -56,15 +56,13 @@ const PHOTOS = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'
 ];
 
-let GENERATED_OBJ = 10;
+const OFFERS_AMOUNT = 10;
 
 const LAT_MIN = 35.65000;
-
 const LAT_MAX = 35.70000;
 
-const ING_MIN = 139.70000;
-
-const ING_MAX = 139.80000;
+const LNG_MIN = 139.70000;
+const LNG_MAX = 139.80000;
 
 const getRandomInt = (min, max) => {
   min = Math.ceil(min);
@@ -91,10 +89,11 @@ const getRandomFloat = (min, max, fractionDigits) => {
 
 const getLocation = () => ({
   lat: getRandomFloat(LAT_MIN, LAT_MAX, 5),
-  lng: getRandomFloat(ING_MIN, ING_MAX, 5)
+  lng: getRandomFloat(LNG_MIN, LNG_MAX, 5)
 });
 
 const getAvatarImg = (number) => {
+  number = (number + 1);
   if (number < 10) {
     number = `0${number}`;
   }
@@ -103,16 +102,18 @@ const getAvatarImg = (number) => {
 
 const getRandomArrayElement = (elements) => elements[getRandomInt(0, elements.length -1)];
 
-const createOffer = () => {
+const createOffer = (index) => {
   const location = getLocation();
+
+  console.log({index});
 
   const offer = {
     autor: {
-      avatar: getAvatarImg(number),
+      avatar: getAvatarImg(index),
     },
     offer: {
       title: getRandomArrayElement(TITLES),
-      // address: location.lat, location.lng, НЕ понимаю как работает
+      address: `${location.lat}, ${location.lng}`,
       price: getRandomInt(1, 1000),
       type: getRandomArrayElement(TYPES),
       rooms: getRandomInt(1, 5),
@@ -135,8 +136,9 @@ const createOffer = () => {
 const createOffers = () => {
   const data = [];
 
-  for (let i = 0; i < 10; i++) {
-    data.push(createOffer());
+  for (let i = 0; i < OFFERS_AMOUNT; i++) {
+    const index = (i < 10) ? `0${i}` : `${i}`;
+    data.push(createOffer(i));
   }
 
   return data;
