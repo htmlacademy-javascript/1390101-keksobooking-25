@@ -80,11 +80,17 @@ const getAvatarImg = (number) => {
 
 const getRandomArrayElement = (elements) => elements[getRandomInt(0, elements.length -1)];
 
+function getMultipleRandom(arr) {
+  const shuffled = [...arr].sort(() => 0.5 - Math.random());
+  const random = getRandomInt(1, arr.length-1);
+  return shuffled.slice(0, random);
+}
+
 const createOffer = (index) => {
   const location = getLocation();
 
   const offer = {
-    autor: {
+    author: {
       avatar: getAvatarImg(index),
     },
     offer: {
@@ -96,9 +102,9 @@ const createOffer = (index) => {
       guests: getRandomInt(1, 20),
       checkin: getRandomArrayElement(CHECKINS),
       checkout: getRandomArrayElement(CHECKOUTS),
-      features: getRandomArrayElement(FEATURES),
+      features: getMultipleRandom(FEATURES),
       description: getRandomArrayElement(DESCRIPTIONS),
-      photos: getRandomArrayElement(PHOTOS),
+      photos: getMultipleRandom(PHOTOS),
     },
     location: {
       lat: location.lat,
