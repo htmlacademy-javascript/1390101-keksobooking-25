@@ -70,10 +70,9 @@ const createOfferCard = (advert) => {
     const photosListItem = document.createElement('img');
 
     photosListItem.classList.add('popup__photos');
-    photosListItem.classList.add(`popup__photos--${  cardPhotos}`);
     photosListItem.style.width = '45px';
     photosListItem.style.height = '40px';
-    photosListItem.src = advert.offer.photos;
+    photosListItem.src = cardPhotos;
     popupPhotos.append(photosListItem);
   });
 
