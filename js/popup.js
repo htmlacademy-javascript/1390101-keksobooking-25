@@ -1,29 +1,25 @@
+/* eslint-disable no-undef */
 
 // создаем переменную для карты
 const offerCard = document.querySelector('#card')
   .content
   .querySelector('.popup');
 
-// создаем вид жилья в виде объекта.
+// // создаем вид жилья
+
+
 const selectionObjectType = (type) => {
-  if (type === 'flat') {
-    return 'Квартира';
-  }
-
-  if (type === 'bungalow') {
-    return 'Бунгало';
-  }
-
-  if (type === 'house') {
-    return 'Дом';
-  }
-
-  if (type === 'palace') {
-    return 'Дворец';
-  }
-
-  if (type === 'hotel') {
-    return 'Отель';
+  switch(type) {
+    case 'flat':
+      return'Квартира';
+    case 'bungalow':
+      return 'Бунгало';
+    case 'house':
+      return 'Дом';
+    case 'palace':
+      return 'Дворец';
+    case 'hotel':
+      return 'Отель';
   }
 };
 
@@ -46,35 +42,35 @@ const createOfferCard = (advert) => {
   console.log('offer is', advert);
 
   popupTitle.textContent = advert.offer.title;
-  popupPrice.textContent = advert.offer.price;
+  popupPrice.textContent = `${advert.offer.price} ₽/ночь`;
   popupType.textContent = selectionObjectType(advert.offer.type);
-  popupAvatar.textContent = advert.offer.author;
   popupTextAddress.textContent = advert.offer.address;
-  popupCapacity.textContent = advert.offer.guests;
+  popupCapacity.textContent = `${advert.offer.rooms} комнаты для ${advert.offer.guests} гостей`;
   popupDescription.textContent = advert.offer.description;
-  popupTime.textContent = advert.offer.checkin.checkout;
-  popupPhotos.textContent = advert.offer.photos;
+  popupTime.textContent = `Заезд после ${advert.offer.checkin}, выезд до ${advert.offer.checkout}`;
 
   popupFeatures.innerHTML = '';
   advert.offer.features.forEach((cardFeature) => {
     const featuresListItem = document.createElement('li');
 
-    featuresListItem.classList.add('popup__feature');
-    featuresListItem.classList.add(`popup__feature--${  cardFeature}`);
+    featuresListItem.classList.add('popup__feature', `popup__feature--${cardFeature}`);
 
     popupFeatures.append(featuresListItem);
   });
 
   popupPhotos.innerHTML = '';
-  advert.offer.photos.forEach((cardPhotos) => {
+  advert.offer.photos.forEach((cardPhoto) => {
     const photosListItem = document.createElement('img');
 
-    photosListItem.classList.add('popup__photos');
-    photosListItem.style.width = '45px';
-    photosListItem.style.height = '40px';
-    photosListItem.src = cardPhotos;
+    photosListItem.classList.add('popup__photo');
+    photosListItem.width = 45;
+    photosListItem.height = 40;
+    photosListItem.src = cardPhoto;
+    photosListItem.alt = 'Фотография жилья';
     popupPhotos.append(photosListItem);
   });
+
+  popupAvatar.src = advert.author.avatar;
 
   return cardElement;
 };
