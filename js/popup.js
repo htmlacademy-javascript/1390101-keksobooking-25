@@ -8,10 +8,10 @@ const offerCard = document.querySelector('#card')
 // // создаем вид жилья
 
 
-const selectionObjectType = (type) => {
+const GetTypeTranslation = (type) => {
   switch(type) {
     case 'flat':
-      return'Квартира';
+      return 'Квартира';
     case 'bungalow':
       return 'Бунгало';
     case 'house':
@@ -43,7 +43,7 @@ const createOfferCard = (advert) => {
 
   popupTitle.textContent = advert.offer.title;
   popupPrice.textContent = `${advert.offer.price} ₽/ночь`;
-  popupType.textContent = selectionObjectType(advert.offer.type);
+  popupType.textContent = GetTypeTranslation(advert.offer.type);
   popupTextAddress.textContent = advert.offer.address;
   popupCapacity.textContent = `${advert.offer.rooms} комнаты для ${advert.offer.guests} гостей`;
   popupDescription.textContent = advert.offer.description;
