@@ -1,5 +1,6 @@
 import {createOffers} from './data.js';
 import { createOfferCard } from './popup.js';
+import { getInactiveState } from './form.js';
 
 const mapCanvas = document.querySelector('#map-canvas');
 

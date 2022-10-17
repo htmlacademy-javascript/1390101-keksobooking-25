@@ -39,7 +39,6 @@ const createOfferCard = (advert) => {
   const popupDescription = cardElement.querySelector('.popup__description');
   const popupPhotos = cardElement.querySelector('.popup__photos');
 
-  console.log('offer is', advert);
 
   popupTitle.textContent = advert.offer.title;
   popupPrice.textContent = `${advert.offer.price} ₽/ночь`;
