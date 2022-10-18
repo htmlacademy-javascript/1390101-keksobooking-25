@@ -2,7 +2,7 @@ const getInactiveState = () => {
   const adForm = document.querySelector('.ad-form');
   adForm.classList.add('ad-form--disabled');
 
-  const childrenForm = adForm.children;
+  const childrenForm = adForm.querySelectorAll('fieldset');
 
   const getchildFormNoActive = () => {
     for (let i = 0; i <= childrenForm.length; i++) {
@@ -17,14 +17,14 @@ const getInactiveState = () => {
   const mapFilters = document.querySelector('.map__filters');
   mapFilters.classList.add('map__filters--disabled');
 
-  const childrenMap = document.querySelectorAll('#map__filters .map__filter');
+  const childrenFiltersMap = mapFilters.querySelectorAll('fieldset', 'select');
 
 
   const getchildMapNoActive =() => {
-    for (let i = 0; i <= childrenMap.length; i++) {
-      const childMap = childrenMap[i];
-      childMap.setAttribute('disabled', 'desabled');
-      console.log('disabled', childMap);
+    for (let i = 0; i <= childrenFiltersMap.length; i++) {
+      const childFiltersMap = childrenFiltersMap[i];
+      childFiltersMap.setAttribute('disabled', 'desabled');
+      console.log('disabled', childFiltersMap);
     }
   };
 
