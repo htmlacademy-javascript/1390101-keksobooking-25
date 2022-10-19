@@ -1,36 +1,30 @@
-const getInactiveState = () => {
-  const adForm = document.querySelector('.ad-form');
-  adForm.classList.add('ad-form--disabled');
+const adForm = document.querySelector('.ad-form');
+const mapFilters = document.querySelector('.map__filters');
+const childrenFiltersMap = mapFilters.querySelectorAll('fieldset, select');
+const childrenForm = adForm.querySelectorAll('fieldset');
 
-  const childrenForm = adForm.querySelectorAll('fieldset');
-
-  const getchildFormNoActive = () => {
-    for (let i = 0; i <= childrenForm.length; i++) {
-      const childForm = childrenForm[i];
-      childForm.setAttribute('disabled', 'disabled');
-      console.log('disabled', childForm);
-    }
-  };
-
-  getchildFormNoActive();
-
-  const mapFilters = document.querySelector('.map__filters');
-  mapFilters.classList.add('map__filters--disabled');
-
-  const childrenFiltersMap = mapFilters.querySelectorAll('fieldset', 'select');
-
-
-  const getchildMapNoActive =() => {
-    for (let i = 0; i <= childrenFiltersMap.length; i++) {
-      const childFiltersMap = childrenFiltersMap[i];
-      childFiltersMap.setAttribute('disabled', 'desabled');
-      console.log('disabled', childFiltersMap);
-    }
-  };
-
-  getchildMapNoActive();
+const toggleElements = (elements, state) => {
+  elements.forEach((element) => {
+    element.disabled = state;
+  });
 };
 
-getInactiveState();
+const deactivatePageState = () => {
+  adForm.classList.add('ad-form--disabled');
+  mapFilters.classList.add('map__filters--disabled');
 
-export {getInactiveState};
+  toggleElements(childrenFiltersMap, true);
+  toggleElements(childrenForm, true);
+};
+
+const activatePageState = () => {
+  adForm.classList.remove('ad-form--disabled');
+  mapFilters.classList.remove('map__filters--disabled');
+
+  toggleElements(childrenFiltersMap, false);
+  toggleElements(childrenForm, false);
+};
+
+deactivatePageState();
+
+export {deactivatePageState, activatePageState};
